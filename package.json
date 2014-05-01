@@ -32,7 +32,8 @@
   "dependencies": {
     "grunt": ">=0.4.x",
     "complexity-report": "0.6.x",
-    "fs-extra": "~0.8.1"
+    "fs-extra": "~0.8.1",
+    "xml2js": "^0.4.2"
   },
   "devDependencies": {
     "mocha": "~1.8.1",
@@ -47,5 +48,8 @@
     "complexity",
     "halstead",
     "cyclomatic"
-  ]
+  ],
+  "readme": "# Grunt-Complexity\n\nA [grunt](http://github.com/gruntjs/grunt/) task that utilizes\n[complexity-report](https://github.com/philbooth/complexityReport.js)\nto evaluate the complexity and maintainability of code.\n\n## Versions\n\n- Use version 0.0.7 for Grunt 0.3.x\n- Use versions 0.1.x for Grunt 0.4.x\n\n![screenshot](https://raw.github.com/vigetlabs/grunt-complexity/master/example.png)\n![screenshot](https://raw.github.com/vigetlabs/grunt-complexity/master/complexity.png)\n\n## Usage\n\n```bash\nnpm install grunt-complexity --save\n```\n\nWithin your grunt file:\n\n```javascript\n    // Project configuration.\n\tgrunt.initConfig({\n\n\t\tcomplexity: {\n\t\t\tgeneric: {\n\t\t\t\tsrc: ['grunt.js', 'tasks/grunt-complexity.js'],\n\t\t\t\toptions: {\n\t\t\t\t\tbreakOnErrors: true,\n\t\t\t\t\tjsLintXML: 'report.xml',         // create XML JSLint-like report\n\t\t\t\t\tcheckstyleXML: 'checkstyle.xml', // create checkstyle report\n\t\t\t\t\terrorsOnly: false,               // show only maintainability errors\n\t\t\t\t\tcyclomatic: [3, 7, 12],          // or optionally a single value, like 3\n\t\t\t\t\thalstead: [8, 13, 20],           // or optionally a single value, like 8\n\t\t\t\t\tmaintainability: 100,\n                    hideComplexFunctions: false      // only display maintainability\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\n\t});\n\n\tgrunt.loadNpmTasks('grunt-complexity');\n\tgrunt.registerTask('default', 'complexity');\n```\n\n## What is Cyclomatic and Halstead?\n\nDocumentation on this to come. For now, see [jscomplexity.org](http://jscomplexity.org/complexity)\n\n## Contributing\n\nThis repo has a submodule, so after you `npm install`, you'll want to `git submodule init` and `git submodule update`.\n\nThen, you should `cd test/grunt.0.4` and `npm install`.\n\nTests can be run with `mocha`.\n\n## Contributors\n\n- Nate Hunzaker([nhunzaker](https://github.com/nhunzaker))\n- Golo Roden ([goloroden](https://github.com/goloroden))\n- Tomasz Drwięga ([tomusdrw](https://github.com/tomusdrw))\n- Doug Avery ([averyvery](https://github.com/averyvery))\n- Jozsef Kozma ([jzsfkzm](https://github.com/jzsfkzm))\n- Patrick Williams [(pwmckenna](https://github.com/pwmckenna))\n- Luís Couto ([Couto](https://github.com/Couto))\n- Roman Liutikov [roman01la](https://github.com/roman01la)\n",
+  "_id": "grunt-complexity@0.1.6",
+  "_from": "grunt-complexity@^0.1.6"
 }

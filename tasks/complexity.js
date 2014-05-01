@@ -8,8 +8,8 @@ module.exports = function(grunt) {
 	var XMLReporter = require('./reporters/XML/xml.js')(grunt);
 	var JSLintXMLReporter = require('./reporters/JSLintXML')(grunt, XMLReporter);
 	var checkstyleReporter = require('./reporters/CheckstyleXML/checkstyleXml.js')(grunt, XMLReporter);
-	var JsonReporter = require('./reporters/Json/json.js')(grunt);
-	var HtmlReporter = require('./reporters/Html/html.js')(grunt); //Use Jade to create an html file
+	var JsonConverter = require('./reporters/Json/json.js')();
+	var HtmlBuilder = require('./reporters/Html/html.js')();
 
 	var Complexity = {
 		//These are the default options for the task
@@ -160,17 +160,18 @@ module.exports = function(grunt) {
 		// Set defaults
 		// These are the defaults or the user Gruntfile.js defined options
 		var options = Complexity.normalizeOptions(this.options(Complexity.defaultOptions));
-
 		var reporter = Complexity.buildReporters(files, options);
-
-
 
 		Complexity.analyze(reporter, files, options);
 
-		new JsonReporter(options);
-		new HtmlReporter(options);
+		if(options.exportJson) {
+			new JsonConverter(options);
 
-		return;
+			//building the html requires a JSON object
+			if(options.buildHtml) {
+				new HtmlBuilder(options);
+			}
+		}
 
 		return options.breakOnErrors === false || this.errorCount === 0;
 	});
