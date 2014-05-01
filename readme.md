@@ -69,4 +69,4 @@ Tests can be run with `mocha`.
 - Patrick Williams [(pwmckenna](https://github.com/pwmckenna))
 - Luís Couto ([Couto](https://github.com/Couto))
 - Roman Liutikov ([roman01la](https://github.com/roman01la))
-- Jordan Papaleo ([roman01la](https://github.com/breck421))
+- Jordan Papaleo ([breck421](https://github.com/breck421))
