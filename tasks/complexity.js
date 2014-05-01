@@ -3,14 +3,16 @@ var cr = require('complexity-report');
 
 module.exports = function(grunt) {
 
-	var MultiReporter = require('./reporters/multi')(grunt);
-	var ConsoleReporter = require('./reporters/Console')(grunt);
-	var XMLReporter = require('./reporters/XML')(grunt);
+	var MultiReporter = require('./reporters/multi.js')(grunt);
+	var ConsoleReporter = require('./reporters/Console/console.js')(grunt);
+	var XMLReporter = require('./reporters/XML/xml.js')(grunt);
 	var JSLintXMLReporter = require('./reporters/JSLintXML')(grunt, XMLReporter);
-	var checkstyleReporter = require('./reporters/CheckstyleXML')(grunt, XMLReporter);
+	var checkstyleReporter = require('./reporters/CheckstyleXML/checkstyleXml.js')(grunt, XMLReporter);
+	var JsonReporter = require('./reporters/Json/json.js')(grunt);
+	var HtmlReporter = require('./reporters/Html/html.js')(grunt); //Use Jade to create an html file
 
 	var Complexity = {
-
+		//These are the default options for the task
 		defaultOptions: {
 			breakOnErrors: true,
 			errorsOnly: false,
@@ -20,6 +22,7 @@ module.exports = function(grunt) {
 			hideComplexFunctions: false
 		},
 
+		//
 		normalizeOptions: function(options) {
 			// Handle backward compatibility of thresholds
 			if (options.cyclomatic instanceof Array === false) {
@@ -37,8 +40,11 @@ module.exports = function(grunt) {
 			return options;
 		},
 
-		buildReporter: function(files, options) {
+		//files - the file list
+		//options - the default or user defined options
+		buildReporters: function(files, options) {
 			var reporter = new MultiReporter(files, options);
+
 			reporter.addReporter(ConsoleReporter);
 
 			if (options.jsLintXML) {
@@ -130,10 +136,12 @@ module.exports = function(grunt) {
 
 			files.map(function(filepath) {
 				var content = grunt.file.read(filepath);
+
 				return {
 					filepath: filepath,
 					analysis: cr.run(content, options)
 				};
+
 			}).sort(function (info1, info2) {
 				return info1.analysis.maintainability - info2.analysis.maintainability;
 			}).forEach(function (info) {
@@ -146,18 +154,26 @@ module.exports = function(grunt) {
 	};
 
 	grunt.registerMultiTask('complexity', 'Determines complexity of code.', function() {
-		var files = this.filesSrc || grunt.file.expandFiles(this.file.src);
+
+		var files = (this.filesSrc) ? this.filesSrc : grunt.file.expandFiles(this.file.src);
 
 		// Set defaults
+		// These are the defaults or the user Gruntfile.js defined options
 		var options = Complexity.normalizeOptions(this.options(Complexity.defaultOptions));
 
-		var reporter = Complexity.buildReporter(files, options);
+		var reporter = Complexity.buildReporters(files, options);
+
+
 
 		Complexity.analyze(reporter, files, options);
+
+		new JsonReporter(options);
+		new HtmlReporter(options);
+
+		return;
 
 		return options.breakOnErrors === false || this.errorCount === 0;
 	});
 
 	return Complexity;
-
 };

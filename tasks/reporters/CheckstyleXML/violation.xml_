@@ -3,11 +3,11 @@
   <error
     line="<%= data.line %>"
     severity="<%= data.severity %>"
-    message="Cyclomatic: <%= data.complexity.cyclomatic %>,
-    Halstead: <%= data.complexity.halstead.difficulty.toPrecision(5) %>
-    | Effort: <%= data.complexity.halstead.effort.toPrecision(5) %>
-    | Volume: <%= data.complexity.halstead.volume.toPrecision(5) %>
-    | Vocabulary: <%= data.complexity.halstead.vocabulary %>"
+    cyclomatic="<%= data.complexity.cyclomatic %>"
+    halstead="<%= data.complexity.halstead.difficulty.toPrecision(5) %>"
+    effort="<%= data.complexity.halstead.effort.toPrecision(5) %>"
+    volume="<%= data.complexity.halstead.volume.toPrecision(5) %>"
+    vocabulary="<%= data.complexity.halstead.vocabulary %>"
     source="<%= escape(data.name) %>"
     />
   <% }) %>

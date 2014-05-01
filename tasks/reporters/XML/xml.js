@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
 	var XMLReporter = function() {};
 	var fs = require('fs-extra'),
-			path = require('path');
+		path = require('path');
 
 	XMLReporter.prototype = {
 		init: function(options, fileKey, dirname) {
