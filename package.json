@@ -1,7 +1,7 @@
 {
   "name": "cc-grunt-complexity",
   "description": "Evaluates code maintainability using Halstead and Cyclomatic metrics.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "homepage": "https://github.com/breck421/grunt-complexity.git",
   "repository": {
     "type": "git",
