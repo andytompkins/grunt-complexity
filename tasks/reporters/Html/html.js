@@ -98,7 +98,7 @@ module.exports = function() {
 
 		if(fileErrors.length > 0) {
 			errors.push('' +
-			'<table calss="table table-bordered">' +
+			'<table class="table table-bordered">' +
 				'<thead>' +
 					'<tr class="row">' +
 						'<th class="col-md-6 text-left">Source</th>' +
